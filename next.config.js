@@ -1,1 +1,1 @@
-module.exports = { serverExternalPackages: ['better-sqlite3'] };
+module.exports = { outputFileTracingIncludes: { '/**': ['./schema.sql'] } };

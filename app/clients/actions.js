@@ -1,5 +1,5 @@
 'use server';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
@@ -19,20 +19,23 @@ function read(form) {
 
 export async function addClient(form) {
   const c = read(form);
-  db.prepare('INSERT INTO clients (name, phone, service, frequency) VALUES (?, ?, ?, ?)')
-    .run(c.name, c.phone, c.service, c.frequency);
+  const sql = await db();
+  await sql`INSERT INTO clients (name, phone, service, frequency)
+            VALUES (${c.name}, ${c.phone}, ${c.service}, ${c.frequency})`;
   revalidatePath('/clients');
 }
 
 export async function updateClient(id, form) {
   const c = read(form);
-  db.prepare('UPDATE clients SET name=?, phone=?, service=?, frequency=? WHERE id=?')
-    .run(c.name, c.phone, c.service, c.frequency, id);
+  const sql = await db();
+  await sql`UPDATE clients SET name=${c.name}, phone=${c.phone}, service=${c.service},
+            frequency=${c.frequency} WHERE id=${id}`;
   revalidatePath('/clients');
   redirect('/clients');
 }
 
 export async function deleteClient(id) {
-  db.prepare('DELETE FROM clients WHERE id=?').run(id);
+  const sql = await db();
+  await sql`DELETE FROM clients WHERE id=${id}`;
   revalidatePath('/clients');
 }

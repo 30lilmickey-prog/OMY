@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import db from '@/lib/db';
+import { db } from '@/lib/db';
 import { addClient, deleteClient } from './actions';
 import ClientFields from './ClientFields';
 
 export const dynamic = 'force-dynamic';
 
-export default function Clients() {
-  const clients = db.prepare('SELECT * FROM clients ORDER BY name').all();
+export default async function Clients() {
+  const sql = await db();
+  const clients = await sql`SELECT * FROM clients ORDER BY name`;
   return (
     <main>
       <p><Link href="/">← Home</Link></p>

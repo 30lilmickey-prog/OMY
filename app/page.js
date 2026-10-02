@@ -1,3 +1,4 @@
+import Link from 'next/link';
 export default function Home() {
   return (
     <main>
@@ -5,7 +6,7 @@ export default function Home() {
       <ul>
         <li>Expenses &amp; receipts (coming soon)</li>
         <li>Income/expense reports (coming soon)</li>
-        <li>Clients &amp; payments (coming soon)</li>
+        <li><Link href="/clients">Clients</Link></li>
       </ul>
     </main>
   );

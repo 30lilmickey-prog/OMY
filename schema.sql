@@ -1,5 +1,9 @@
 CREATE TABLE IF NOT EXISTS clients (
-  id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT, phone TEXT, notes TEXT
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  phone TEXT,
+  service TEXT,
+  frequency TEXT -- weekly | biweekly | monthly | one-time
 );
 CREATE TABLE IF NOT EXISTS income (
   id INTEGER PRIMARY KEY, client_id INTEGER REFERENCES clients(id),
